@@ -1,0 +1,13 @@
+@model MovieSearchRes
+
+<div class="col-md-4 mb-4">
+    <div class="card bg-dark text-white">
+        <img src="https://image.tmdb.org/t/p/w500/@Model.poster_path" class="card-img-top" alt="@Model.title">
+        <div class="card-body">
+            <h5 class="card-title">@Model.title</h5>
+            <p class="card-text">
+                Жанры: @string.Join(", ", Model.genre_ids)
+            </p>
+        </div>
+    </div>
+</div>
