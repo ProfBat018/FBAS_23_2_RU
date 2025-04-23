@@ -3,7 +3,7 @@
 
 .vscode
 
-appsettings.json
+
 
 # Azure Functions localsettings file
 local.settings.json
