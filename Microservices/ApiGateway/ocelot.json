@@ -1,0 +1,35 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v1/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "controllerfirst",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/api/{everything}",
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "weatherapp",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/weather/api/{everything}",
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://apigateway"
+  }
+}
+
+
+
+

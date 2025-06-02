@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapp
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weatherapp
+  template:
+    metadata:
+      labels:
+        app: weatherapp
+    spec:
+      containers:
+        - name: weatherapp
+          image: nightcall018/microservicesapp:weatherapp
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5002
+          volumeMounts:
+            - name: logs
+              mountPath: /app/logs
+      volumes:
+        - name: logs
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp
+  namespace: microservices
+spec:
+  selector:
+    app: weatherapp
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002

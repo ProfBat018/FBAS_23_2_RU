@@ -1,0 +1,153 @@
+.
+├── ApiGateway
+│   ├── ApiGateway
+│   │   ├── ApiGateway.csproj
+│   │   ├── ApiGateway.http
+│   │   ├── Dockerfile
+│   │   ├── Program.cs
+│   │   ├── Properties
+│   │   │   └── launchSettings.json
+│   │   ├── appsettings.Development.json
+│   │   ├── appsettings.json
+│   │   └── ocelot.json
+│   └── ApiGateway.sln
+├── ControllerFirst
+│   ├── ControllerFirst.csproj
+│   ├── ControllerFirst.http
+│   ├── ControllerFirst.sln
+│   ├── ControllerFirst.sln.DotSettings.user
+│   ├── Controllers
+│   │   ├── AccountController.cs
+│   │   ├── AddressController.cs
+│   │   ├── AuthController.cs
+│   │   ├── CardController.cs
+│   │   ├── RoleController.cs
+│   │   ├── SearchController.cs
+│   │   └── UserController.cs
+│   ├── DTO
+│   │   ├── Requests
+│   │   │   ├── Create
+│   │   │   │   ├── CreateAddressRequest.cs
+│   │   │   │   ├── CreateCardRequest.cs
+│   │   │   │   ├── CreateRoleRequest.cs
+│   │   │   │   ├── LoginRequest.cs
+│   │   │   │   ├── RefreshTokenRequest.cs
+│   │   │   │   ├── RegisterRequest.cs
+│   │   │   │   ├── ResetPasswordRequest.cs
+│   │   │   │   ├── RoleMapRequest.cs
+│   │   │   │   └── UserElasticDTO.cs
+│   │   │   ├── Delete
+│   │   │   │   ├── DeleteAccountRequest.cs
+│   │   │   │   ├── DeleteAddressRequest.cs
+│   │   │   │   ├── DeleteCardRequest.cs
+│   │   │   │   └── DeleteRoleRequest.cs
+│   │   │   └── Update
+│   │   │       ├── ChangeEmailRequest.cs
+│   │   │       ├── ChangePasswordRequest.cs
+│   │   │       ├── ChangeUsernameRequest.cs
+│   │   │       ├── ConfirmFromAdminRequest.cs
+│   │   │       ├── SetAsPrimaryRequest.cs
+│   │   │       ├── UpdateAddressRequest.cs
+│   │   │       ├── UpdateCardRequest.cs
+│   │   │       └── UpdateRoleRequest.cs
+│   │   └── Responses
+│   │       ├── AddressResponse.cs
+│   │       ├── CardResponse.cs
+│   │       ├── LogOutResponse.cs
+│   │       ├── LoginResponse.cs
+│   │       ├── NotificationMessage.cs
+│   │       ├── PaginatedResult.cs
+│   │       ├── RefreshTokenResponse.cs
+│   │       ├── Result.cs
+│   │       ├── RoleResponse.cs
+│   │       ├── RolesInfoResponse.cs
+│   │       ├── UserInfoResponse.cs
+│   │       └── UserResponse.cs
+│   ├── Data
+│   │   ├── Config
+│   │   │   ├── RoleConfig.cs
+│   │   │   ├── UserAddressConfig.cs
+│   │   │   ├── UserCardConfig.cs
+│   │   │   ├── UserConfig.cs
+│   │   │   └── UserRoleConfig.cs
+│   │   ├── Contexts
+│   │   │   ├── AuthContext.cs
+│   │   │   └── DbInitializer.cs
+│   │   ├── Mapping
+│   │   │   ├── UserAddressProfile.cs
+│   │   │   ├── UserCardProfile.cs
+│   │   │   └── UserProfile.cs
+│   │   ├── Models
+│   │   │   ├── CardType.cs
+│   │   │   ├── Role.cs
+│   │   │   ├── User.cs
+│   │   │   ├── UserAddress.cs
+│   │   │   ├── UserCard.cs
+│   │   │   └── UserRole.cs
+│   │   └── Validators
+│   │       ├── LoginValidator.cs
+│   │       └── RegisterValidator.cs
+│   ├── Dockerfile
+│   ├── Hubs
+│   │   └── UserNotificationHub.cs
+│   ├── Middlewares
+│   │   └── JwtRefreshMiddleware.cs
+│   ├── Migrations
+│   │   ├── 20250214114414_First.Designer.cs
+│   │   ├── 20250214114414_First.cs
+│   │   ├── 20250214124006_Second.Designer.cs
+│   │   ├── 20250214124006_Second.cs
+│   │   ├── 20250307112931_Third.Designer.cs
+│   │   ├── 20250307112931_Third.cs
+│   │   ├── 20250424112512_Fourth.Designer.cs
+│   │   ├── 20250424112512_Fourth.cs
+│   │   ├── 20250424120101_CardTypeAdded.Designer.cs
+│   │   ├── 20250424120101_CardTypeAdded.cs
+│   │   └── AuthContextModelSnapshot.cs
+│   ├── Program.cs
+│   ├── Properties
+│   │   └── launchSettings.json
+│   ├── Services
+│   │   ├── Classes
+│   │   │   ├── AccountService.cs
+│   │   │   ├── AddressService.cs
+│   │   │   ├── AuthService.cs
+│   │   │   ├── CardService.cs
+│   │   │   ├── EncryptionService.cs
+│   │   │   ├── RoleService.cs
+│   │   │   ├── TokenService.cs
+│   │   │   ├── UserElasticReindexService.cs
+│   │   │   ├── UserElasticService.cs
+│   │   │   └── UserService.cs
+│   │   └── Interfaces
+│   │       ├── IAccountService.cs
+│   │       ├── IAddressService.cs
+│   │       ├── IAuthService.cs
+│   │       ├── ICardService.cs
+│   │       ├── IElasticReindexService.cs
+│   │       ├── IEncryptionService.cs
+│   │       ├── IRoleService.cs
+│   │       ├── ITokenSerivce.cs
+│   │       ├── IUserElasticService.cs
+│   │       └── IUserService.cs
+│   ├── Shared
+│   │   ├── GlobalExceptionMiddleware.cs
+│   │   └── RegexPattern.cs
+│   ├── Startup.cs
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── readme.md
+│   └── wwwroot
+│       ├── email.html
+│       └── reset.html
+└── WeatherApp
+    ├── WeatherApp
+    │   ├── Program.cs
+    │   ├── Properties
+    │   │   └── launchSettings.json
+    │   ├── WeatherApp.csproj
+    │   ├── WeatherApp.http
+    │   ├── WeatherController.cs
+    │   ├── appsettings.Development.json
+    │   └── appsettings.json
+    └── WeatherApp.sln

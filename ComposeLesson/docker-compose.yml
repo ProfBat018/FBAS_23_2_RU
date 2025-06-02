@@ -1,0 +1,70 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    environment:
+      SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - weather-net
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  migrator:
+    build:
+      context: ./WeatherApp/WeatherApp
+      target: migration
+      args:
+        - CONNECTION_STRING=${CONNECTION_STRING}
+    container_name: ef-migrator
+    depends_on:
+      - mssql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=${CONNECTION_STRING}
+    networks:
+      - weather-net
+    volumes:
+      - ./WeatherApp/WeatherApp:/app
+    command: >
+      bash -c "
+        sleep 15 &&
+        dotnet ef database update --project WeatherApp.csproj --startup-project WeatherApp.csproj
+      "
+  backend:
+    build:
+      context: ./WeatherApp/WeatherApp
+      args:
+        - CONNECTION_STRING=${CONNECTION_STRING}
+    container_name: aspnet-app
+    depends_on:
+      - mssql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=${CONNECTION_STRING}
+    ports:
+      - "5001:5001"
+    networks:
+      - weather-net
+
+  frontend:
+    build:
+      context: ./weather-app
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+    container_name: react-app
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - weather-net
+
+networks:
+  weather-net:
+    driver: bridge
+
+volumes:
+  mssql-data:

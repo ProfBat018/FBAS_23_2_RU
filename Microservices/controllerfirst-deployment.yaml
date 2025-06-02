@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: controllerfirst
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: controllerfirst
+  template:
+    metadata:
+      labels:
+        app: controllerfirst
+    spec:
+      containers:
+        - name: controllerfirst
+          image: nightcall018/microservicesapp:auth
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5001
+          envFrom:
+            - secretRef:
+                name: app-secrets
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/data
+      volumes:
+        - name: data-volume
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: controllerfirst
+  namespace: microservices
+spec:
+  selector:
+    app: controllerfirst
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
