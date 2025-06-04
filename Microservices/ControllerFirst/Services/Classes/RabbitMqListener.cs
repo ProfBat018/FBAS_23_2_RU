@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
@@ -8,11 +9,15 @@ namespace ControllerFirst.Services.Classes;
 
 public class RabbitMqListener : BackgroundService
 {
+    private readonly RabbitMqSettings _settings;
     private readonly IConfiguration _configuration;
     private IConnection? _connection;
     private IModel? _channel;
     private string _queue = "weather";
 
+    public RabbitMqListener(IOptions<RabbitMqSettings> options)
+    {
+        _settings = options.Value;
     public RabbitMqListener(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -22,6 +27,12 @@ public class RabbitMqListener : BackgroundService
     {
         var factory = new ConnectionFactory
         {
+
+            HostName = _settings.Host,
+            UserName = _settings.Username,
+            Password = _settings.Password
+        };
+        _queue = _settings.Queue;
             HostName = _configuration["RabbitMQ:Host"] ?? "rabbitmq",
             UserName = _configuration["RabbitMQ:Username"],
             Password = _configuration["RabbitMQ:Password"]

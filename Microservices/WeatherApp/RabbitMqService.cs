@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
@@ -9,6 +10,18 @@ public class RabbitMqService : IDisposable
     private readonly IModel _channel;
     private readonly IConnection _connection;
     private readonly string _queue;
+    private readonly RabbitMqSettings _settings;
+
+    public RabbitMqService(IOptions<RabbitMqSettings> options)
+    {
+        _settings = options.Value;
+        var factory = new ConnectionFactory
+        {
+            HostName = _settings.Host,
+            UserName = _settings.Username,
+            Password = _settings.Password
+        };
+        _queue = _settings.Queue;
 
     public RabbitMqService(IConfiguration configuration)
     {
