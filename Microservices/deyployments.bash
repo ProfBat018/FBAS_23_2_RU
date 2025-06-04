@@ -9,6 +9,7 @@ kubectl apply -f namespace.yaml
 
 # 2. Загрузить секреты
 kubectl apply -f secrets.yaml
+kubectl apply -f rabbitmq-deployment.yaml
 
 # 3. Деплой ApiGateway
 kubectl apply -f apigateway-deployment.yaml
