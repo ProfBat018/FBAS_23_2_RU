@@ -147,6 +147,8 @@ public class Startup
             return new ElasticClient(settings);
         });
 
+        services.AddHostedService<RabbitMqListener>();
+
     }
 
     public void Configure(WebApplication app)
