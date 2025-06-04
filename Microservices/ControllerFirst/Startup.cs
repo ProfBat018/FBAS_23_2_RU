@@ -147,6 +147,7 @@ public class Startup
             return new ElasticClient(settings);
         });
 
+
         services.Configure<RabbitMqSettings>(_configuration.GetSection("RabbitMQ"));
         services.AddHostedService<RabbitMqListener>();
 
