@@ -1,5 +1,5 @@
 using System.Text;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
 namespace WeatherApp;
@@ -9,16 +9,18 @@ public class RabbitMqService : IDisposable
     private readonly IModel _channel;
     private readonly IConnection _connection;
     private readonly string _queue;
+    private readonly RabbitMqSettings _settings;
 
-    public RabbitMqService(IConfiguration configuration)
+    public RabbitMqService(IOptions<RabbitMqSettings> options)
     {
+        _settings = options.Value;
         var factory = new ConnectionFactory
         {
-            HostName = configuration["RabbitMQ:Host"] ?? "rabbitmq",
-            UserName = configuration["RabbitMQ:Username"],
-            Password = configuration["RabbitMQ:Password"]
+            HostName = _settings.Host,
+            UserName = _settings.Username,
+            Password = _settings.Password
         };
-        _queue = configuration["RabbitMQ:Queue"] ?? "weather";
+        _queue = _settings.Queue;
 
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
